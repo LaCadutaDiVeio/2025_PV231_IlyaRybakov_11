@@ -5,6 +5,7 @@ project(Lab10_FileManager VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(CMAKE_INCLUDE_CURRENT_DIR ON) # хрен его знает, не понял, зачем это надо, но вроде надо
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,10 +14,26 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+    main.cpp
+
+    # UI
+    ui/MainWindow.cpp
+    ui/MainWindow.h
+    ui/MainWindow.ui
+
+    # ядро менеджера
+    core/file_manager.cpp
+    core/file_manager.h
+    core/file.cpp
+    core/file.h
+    core/file_copier.cpp
+    core/file_copier.h
+    core/file_manager.h
+    core/utils/smartptr.h
+
+    # связь логики с UI
+    controller/file_manager_controller.cpp
+    controller/file_manager_controller.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -43,6 +60,13 @@ else()
 endif()
 
 target_link_libraries(Lab10_FileManager PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+
+target_include_directories(Lab10_FileManager PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/ui
+    ${CMAKE_CURRENT_SOURCE_DIR}/model
+    ${CMAKE_CURRENT_SOURCE_DIR}/controller
+    ${CMAKE_CURRENT_SOURCE_DIR}/SmartPtr
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
