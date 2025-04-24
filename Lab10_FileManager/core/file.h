@@ -32,5 +32,29 @@ public:
 };
 // ==================
 
+class File {
+private:
+    std::string path;
+
+    void validatePath() const;
+    static std::string joinPaths(const std::string& base, const std::string& name);
+
+public:
+    explicit File(const std::string& path);
+    ~File();
+
+    void copyTo(const std::string& destination) const;
+    void remove();
+    bool rename(const std::string& newName);
+
+    // Работа с информацией
+    std::string getPath() const;
+    std::string getName() const;
+    size_t getSize() const;
+    std::time_t getLastModified() const;
+    bool exists() const;
+    bool isDirectory() const;
+};
+
 
 #endif // FILE_H
