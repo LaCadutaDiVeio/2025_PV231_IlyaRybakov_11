@@ -19,7 +19,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void chooseLeftDir(); // “Select left dir”
+    void chooseRightDir(); // “Select right dir”
+    void copyFiles(); // “===Copy==>”
+    void onCopyFinished(int copied,int skipped,const QString& msg);
+
 private:
     Ui::MainWindow *ui;
+    QFileSystemModel *leftModel  = nullptr;
+    QFileSystemModel *rightModel = nullptr;
+    FileManagerController controller;
 };
 #endif // MAINWINDOW_H

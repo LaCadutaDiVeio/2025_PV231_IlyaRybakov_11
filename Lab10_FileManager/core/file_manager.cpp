@@ -17,7 +17,7 @@ void FileManager::copyFiles(const std::vector<SmartPtr<File>>& files,
         try {
             file->copyTo(dest + "/" + file->getName());
         } catch (const FileCopyError& e) {
-            // Логирование ошибки (реализуйте отдельно)
+            // Круто было бы отреагировать как-то, но не в этот раз
         }
     }
 }

@@ -9,12 +9,9 @@ void FileManagerController::setDestDir  (const QString &p){ m_dst = p; }
 
 QPair<int,int> FileManagerController::copySelected(const QList<QString>& paths)
 {
-    using core::SmartPtr;         // чтобы не писать полный путь
-    using core::File;
-
     std::vector<SmartPtr<File>> toCopy;
     for(const QString& q : paths)
-        toCopy.emplace_back(SmartPtr<File>(new File(q.toStdString())));
+        toCopy.emplace_back(SmartPtr(new File(q.toStdString())));
 
     bool ok = m_copier.copyFiles(toCopy, m_dst.toStdString());
 

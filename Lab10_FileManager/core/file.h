@@ -40,8 +40,10 @@ private:
     static std::string joinPaths(const std::string& base, const std::string& name);
 
 public:
-    explicit File(const std::string& path);
-    ~File();
+    explicit File(const std::string& path) : path(path) {
+        validatePath();
+    };
+    ~File() = default;
 
     void copyTo(const std::string& destination) const;
     void remove();
