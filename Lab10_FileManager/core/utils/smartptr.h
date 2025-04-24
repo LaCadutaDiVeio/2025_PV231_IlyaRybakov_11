@@ -45,6 +45,10 @@ public:
      * освобождённой памяти + принцип единственности владения
     */
 
+    explicit operator bool() const {
+        return ptr != nullptr; // Для упрощения проверок if(file)
+    }
+
     // Move-конструктор
     SmartPtr(SmartPtr&& other) noexcept : ptr(other.ptr) {
         other.ptr = nullptr;
